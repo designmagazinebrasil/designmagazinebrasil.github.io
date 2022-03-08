@@ -66,6 +66,45 @@ header {
     text-align: right;
 }
 
+.issues__heading {
+    font-size: 40px;
+}
+
+.issues {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 32px;
+}
+
+.issue__card {
+    background-color: var(--light);
+    display: flex;
+    flex-direction: column;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.issue__cover {
+    display: block;
+    border-radius: 5px;
+    height: 240px;
+    align-self:center;
+    margin: 32px;
+    transition: transform ease-in-out .3s;
+}
+
+.issue__card:hover .issue__cover {
+    transform: scale(1.04);
+}
+
+.issue__cta {
+    background-color: var(--accent);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+}
+
 footer .container {
     text-align: center;
 }
