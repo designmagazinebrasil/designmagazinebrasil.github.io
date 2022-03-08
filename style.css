@@ -4,6 +4,11 @@
     --accent: #19D3DA;
 }
 
+::selection {
+    background-color: var(--accent);
+    color: white;
+}
+
 body {
     font-family: 'Lato', sans-serif;
     color: var(--medium);
@@ -12,6 +17,10 @@ body {
 
 a {
     color: var(--accent);
+}
+
+p {
+    line-height: 1.6;
 }
 
 .section {
@@ -32,6 +41,29 @@ header {
     display: block;
     width: 240px;
     margin: 0px auto;
+}
+
+.container--editorial {
+    max-width: 840px;
+}
+
+.editorial {
+    font-style: italic;
+    position: relative;
+}
+
+.editorial::before {
+    content: "“";
+    position: absolute;
+    top: -60px;
+    left: -50px;
+    font-size: 240px;
+    line-height: 1;
+    opacity: .15;
+}
+
+.editorial__name {
+    text-align: right;
 }
 
 footer .container {
