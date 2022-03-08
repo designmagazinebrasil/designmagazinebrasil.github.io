@@ -82,19 +82,33 @@ header {
     flex-direction: column;
     border-radius: 3px;
     overflow: hidden;
+    justify-content: space-between;
+    perspective: 1000px;
+    perspective-origin: left center;
 }
 
 .issue__cover {
     display: block;
-    border-radius: 5px;
+    border-radius: 6px;
     height: 240px;
     align-self:center;
     margin: 32px;
     transition: transform ease-in-out .3s;
+    z-index: 1;
+    
+}
+.issue__cover--bonus {
+    position: absolute;
+    z-index: 0;
+    transform: scale(0.95) translateX(20px);
 }
 
 .issue__card:hover .issue__cover {
-    transform: scale(1.04);
+    transform: scale(1.06) rotateY(-20deg);
+}
+
+.issue__card:hover .issue__cover--bonus {
+    transform: scale(1.00) translateX(60px);
 }
 
 .issue__cta {
