@@ -1,0 +1,39 @@
+:root {
+    --medium: #818386;
+    --light: #EEEEEE;
+    --accent: #19D3DA;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    color: var(--medium);
+    margin: 0;
+}
+
+a {
+    color: var(--accent);
+}
+
+.section {
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0px auto;
+}
+
+header {
+    border-bottom: 1px solid var(--light);
+}
+
+.logo {
+    display: block;
+    width: 240px;
+    margin: 0px auto;
+}
+
+footer .container {
+    text-align: center;
+}
