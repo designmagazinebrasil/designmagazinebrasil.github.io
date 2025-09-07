@@ -20,10 +20,24 @@ const getCoverImage = (coverFileName: string) => {
 	const coverPath = `/src/assets/covers/${coverFileName}`;
 	return covers[coverPath]?.default;
 };
+
+// Find previous and next issues
+const allIssues = await getCollection("issues")
+	.then((issues) => issues.sort((a, b) => {
+		return Number(a.id) - Number(b.id);
+	}))
+	.catch((err) => {
+		console.error(err);
+		return [];
+	});
+const currentIndex = allIssues.findIndex(i => i.id === issue.id);
+const previousIssue = currentIndex > 0 ? allIssues[currentIndex - 1] : null;
+const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex + 1] : null;
+
 ---
 
 <Layout title={`Edição ${issue.id} - ${issue.data.title}`} description={`Leia a edição ${issue.data.number} da revista DMBR, intitulada "${issue.data.title}".`}>
-	<section>
+	<section class="issue">
 		<article class="container">
 			<h1 class="section-title">#{issue.id}</h1>
 			<div class="issue-content">
@@ -38,11 +52,28 @@ const getCoverImage = (coverFileName: string) => {
 			</div>
 		</article>
 	</section>
+
+	<section>
+		<div class="container">
+			<div class="issue-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem;">
+				{previousIssue ? (
+					<a href={`/edicoes/${previousIssue.id}/`}>
+						&larr; Edição {previousIssue.id} - {previousIssue.data.title}
+					</a>
+				) : <div></div>}
+				{nextIssue ? (
+					<a href={`/edicoes/${nextIssue.id}/`}>
+						Edição {nextIssue.id} - {nextIssue.data.title} &rarr;
+					</a>
+				) : <div></div>}
+			</div>
+		</div>
+	</section>
 </Layout>
 
 <style>
 
-	section {
+	.issue {
 		background-color: var(--color-background-secondary);
 		padding-block: 4rem;
 		position: relative;
@@ -82,5 +113,9 @@ const getCoverImage = (coverFileName: string) => {
 			margin-top: -10rem;
 		}
 	}
-
+	.issue-navigation {
+		a {
+			text-decoration: none;
+		}
+	}
 </style>
