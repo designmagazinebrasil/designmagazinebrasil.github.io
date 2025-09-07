@@ -30,7 +30,7 @@ const getCoverImage = (coverFileName: string) => {
 				<div class="issue-text">
 					<h2>{issue.data.title}</h2>
 					<Content />
-					<a class="cta" href="http://">Leia mais</a>
+					<a class="cta" href={`${issue.link}`}>Leia mais</a>
 				</div>
 				{issue.data.cover && (
 					<Image src={getCoverImage(issue.data.cover)!} width={400} alt={`Capa da edição ${issue.id} - ${issue.data.title}`} />
@@ -57,6 +57,7 @@ const getCoverImage = (coverFileName: string) => {
 		gap: 4rem;
 
 		.issue-text {
+			flex: 1;
 			font-size: 1.5rem;
 			min-width: 0;
 
