@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
+
 
 const allIssues = await getCollection("issues")
 	.then((issues) => issues.sort((a, b) => {
@@ -10,6 +11,15 @@ const allIssues = await getCollection("issues")
 		console.error(err);
 		return [];
 	});
+
+const issuesByYear = allIssues.reduce<Record<string, CollectionEntry<'issues'>[]>>((acc, issue) => {
+	const year = issue.data.year;
+	if (!acc[year]) {
+		acc[year] = [];
+	}
+	acc[year].push(issue);
+	return acc;
+}, {});
 
 ---
 
@@ -33,11 +43,18 @@ const allIssues = await getCollection("issues")
 		<div class="container">
 			<h2>Edicões Publicadas</h2>
 			<ul>
-				{allIssues.map((issue) => (
+				{Object.keys(issuesByYear).sort((a, b) => Number(b) - Number(a)).map((year) => (
 					<li>
-						<a href={`/issues/${issue.data.number}`}>
-							Edição {issue.data.number} - {issue.data.title} ({issue.data.year})
-						</a>
+						<h3>{year}</h3>
+						<ul>
+							{issuesByYear[year].map((issue) => (
+								<li>
+									<a href={`/issues/${issue.data.number}/`}>
+										Edição {issue.data.number} - {issue.data.title}
+									</a>
+								</li>
+							))}
+						</ul>
 					</li>
 				))}
 			</ul>
