@@ -8,6 +8,12 @@ import '@fontsource/crimson-text/700.css';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+// ../assets/issue16.jpeg
+// import issue 16 as image
+import HeaderBackground from '../assets/issue16.jpeg';
+import { Image } from 'astro:assets';
+
+
 ---
 
 <!DOCTYPE html>
@@ -18,6 +24,7 @@ import Footer from '../components/Footer.astro';
 	<title>Design Magazine Brasil</title>
 </head>
 <body>
+	<Image src={HeaderBackground} width="1920" alt="Header Background" class="header-background" />
 	<Header />
 	<main>
 		<slot />
@@ -27,5 +34,16 @@ import Footer from '../components/Footer.astro';
 </html>
 
 <style>
-	
+	.header-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 24rem;
+		object-fit: cover;
+		-webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+		mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+		opacity: 0.15;
+		user-select: none;
+	}
 </style>
