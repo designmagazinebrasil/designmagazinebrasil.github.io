@@ -1,0 +1,30 @@
+:root {
+	--color-foreground: #202020;
+	--color-background: #fcfcfc;
+	--color-background-secondary: #ededed
+	--color-border: #fdfdfd;
+	--color-accent: #72dee3;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Crimson Text', serif;
+	color: var(--color-foreground);
+	background-color: var(--color-background);
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+	font-family: 'Crimson Pro', serif;
+	font-weight: 900;
+	margin: 0;
+}
+
+:is(header, footer, section) {
+	padding-inline: 3rem;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+}

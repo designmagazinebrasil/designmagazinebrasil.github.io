@@ -9,6 +9,8 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@fontsource/crimson-pro": "^5.2.6",
+    "@fontsource/crimson-text": "^5.2.6",
     "astro": "^5.13.5"
   }
 }
