@@ -21,24 +21,54 @@ const issuesByYear = allIssues.reduce<Record<string, CollectionEntry<'issues'>[]
 
 ---
 
-<section>
-	<div class="container">
-		<h2>Edicões Publicadas</h2>
-		<ul>
-			{Object.keys(issuesByYear).sort((a, b) => Number(b) - Number(a)).map((year) => (
-				<li>
-					<h3>{year}</h3>
-					<ul>
-						{issuesByYear[year].map((issue) => (
-							<li>
-								<a href={`/issues/${issue.data.number}/`}>
-									Edição {issue.data.number} - {issue.data.title}
-								</a>
-							</li>
-						))}
-					</ul>
-				</li>
-			))}
-		</ul>
-	</div>
-</section>
+<div class="issues">
+	{Object.keys(issuesByYear).sort((a, b) => Number(b) - Number(a)).map((year) => (
+		<section>
+			<div class="container">
+				<h2>{year}</h2>
+				<ul>
+					{issuesByYear[year].map((issue) => (
+						<li>
+							<a href={`/issues/${issue.data.number}/`}>
+								Edição {issue.data.number} - {issue.data.title}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+		</section>
+	))}
+</div>
+
+<style>
+	.issues {
+		margin-top: 12rem;
+	}
+	.issues section:nth-child(odd) {
+		--bg-color: var(--color-background-secondary);
+	}
+	.issues section:nth-child(even) {
+		--bg-color: var(--color-background);
+	}
+
+	.issues section {
+		background-color: var(--bg-color);
+		padding-block: 2rem;
+		position: relative;
+		padding-block: 1rem 12rem;
+	}
+
+	.issues ul {
+		position: relative;
+		z-index: 1;
+	}
+
+	.issues h2 {
+		font-size: 12rem;
+		line-height: 1;
+		position: absolute;
+		bottom: calc(100% - 2.3rem);
+		color: var(--bg-color);
+		user-select: none;
+	}
+</style>
