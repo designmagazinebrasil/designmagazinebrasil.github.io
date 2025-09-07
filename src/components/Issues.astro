@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 
 const allIssues = await getCollection("issues")
 	.then((issues) => issues.sort((a, b) => {
-		return Number(b.data.number) - Number(a.data.number);
+		return Number(b.id) - Number(a.id);
 	}))
 	.catch((err) => {
 		console.error(err);
@@ -35,12 +35,12 @@ const getCoverImage = (coverFileName: string) => {
 			<div class="container">
 				<h2>{year}</h2>
 				<div class="issues-list">
-					{issuesByYear[year].map((issue) => (
-						<a href={`/issues/${issue.data.number}/`}>
+					 {issuesByYear[year].map((issue) => (
+					 <a href={`/edicoes/${issue.id}/`}>
 							{/* Edição {issue.data.number} - {issue.data.title} */}
 							{/* <img src="https://placehold.co/200x280" alt="" /> */}
 							{issue.data.cover && (
-								<Image src={getCoverImage(issue.data.cover)!} width={240} alt={`Capa da edição ${issue.data.number} - ${issue.data.title}`} />
+								<Image src={getCoverImage(issue.data.cover)!} width={240} alt={`Capa da edição ${issue.id} - ${issue.data.title}`} />
 							)}
 							{/* If issue has link, show a link icon */}
 						</a>
@@ -85,13 +85,14 @@ const getCoverImage = (coverFileName: string) => {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		justify-items: center;
+		align-items: center;
 		gap: 4rem 2rem;
 
 		img {
 			max-width: 200px;
 			height: auto;
 			border-radius: 8px;
-			/* object-fit: contain; */
+			display: block;
 		}
 
 		@media (max-width: 767px) {
