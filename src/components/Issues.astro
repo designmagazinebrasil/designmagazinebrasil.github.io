@@ -33,16 +33,13 @@ const getCoverImage = (coverFileName: string) => {
 	{Object.keys(issuesByYear).sort((a, b) => Number(b) - Number(a)).map((year) => (
 		<section>
 			<div class="container">
-				<h2>{year}</h2>
+				<h2 class="section-title">{year}</h2>
 				<div class="issues-list">
 					 {issuesByYear[year].map((issue) => (
 					 <a href={`/edicoes/${issue.id}/`}>
-							{/* Edição {issue.data.number} - {issue.data.title} */}
-							{/* <img src="https://placehold.co/200x280" alt="" /> */}
 							{issue.data.cover && (
 								<Image src={getCoverImage(issue.data.cover)!} width={240} alt={`Capa da edição ${issue.id} - ${issue.data.title}`} />
 							)}
-							{/* If issue has link, show a link icon */}
 						</a>
 					))}
 				</div>
@@ -67,15 +64,10 @@ const getCoverImage = (coverFileName: string) => {
 		padding-block: 2rem;
 		position: relative;
 		padding-block: 1rem 12rem;
-	}
 
-	.issues h2 {
-		font-size: 12rem;
-		line-height: 1;
-		position: absolute;
-		bottom: calc(100% - 2.3rem);
-		color: var(--bg-color);
-		user-select: none;
+		&:last-of-type {
+			padding-bottom: 4rem;
+		}
 	}
 
 	.issues .issues-list {

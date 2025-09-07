@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 
 export async function getStaticPaths() {
   const issues = await getCollection('issues');
@@ -13,15 +14,72 @@ export async function getStaticPaths() {
 const { issue } = Astro.props;
 const { Content } = await render(issue);
 
+const covers = import.meta.glob<{ default: ImageMetadata }>('/src/assets/covers/*.{jpg,png,jpeg}', { eager: true });
+
+const getCoverImage = (coverFileName: string) => {
+	const coverPath = `/src/assets/covers/${coverFileName}`;
+	return covers[coverPath]?.default;
+};
 ---
 
 <Layout title={`Edição ${issue.id} - ${issue.data.title}`} description={`Leia a edição ${issue.data.number} da revista DMBR, intitulada "${issue.data.title}".`}>
 	<section>
 		<article class="container">
-			<h1>Edição {issue.id} - {issue.data.title}</h1>
+			<h1 class="section-title">#{issue.id}</h1>
 			<div class="issue-content">
-				<Content />
+				<div class="issue-text">
+					<h2>{issue.data.title}</h2>
+					<Content />
+					<a class="cta" href="http://">Leia mais</a>
+				</div>
+				{issue.data.cover && (
+					<Image src={getCoverImage(issue.data.cover)!} width={400} alt={`Capa da edição ${issue.id} - ${issue.data.title}`} />
+				)}
 			</div>
 		</article>
 	</section>
 </Layout>
+
+<style>
+
+	section {
+		background-color: var(--color-background-secondary);
+		padding-block: 4rem;
+		position: relative;
+		margin-top: 12rem;
+
+		h1 {
+			color: var(--color-background-secondary);
+		}
+	}
+	.issue-content {
+		display: flex;
+		gap: 4rem;
+
+		.issue-text {
+			font-size: 1.5rem;
+			min-width: 0;
+
+			p {
+				text-wrap: pretty;
+			}
+
+			.cta {
+				display: inline-block;
+				background-color: var(--color-accent);
+				font-family: 'Crimson Pro', serif;
+				font-weight: 700;
+				color: white;
+				padding: 1rem 2rem;
+				border-radius: 8px;
+				text-decoration: none;
+			}
+		}
+
+		img {
+			border-radius: 16px;
+			margin-top: -10rem;
+		}
+	}
+
+</style>

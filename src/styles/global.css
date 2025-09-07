@@ -28,3 +28,12 @@ html, body {
 	max-width: 1200px;
 	margin: 0 auto;
 }
+
+.section-title {
+	font-size: 12rem;
+	line-height: 1;
+	position: absolute;
+	bottom: calc(100% - 2.3rem);
+	color: var(--bg-color);
+	user-select: none;
+}
