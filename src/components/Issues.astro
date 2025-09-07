@@ -1,5 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
+import { Image } from 'astro:assets';
 
 const allIssues = await getCollection("issues")
 	.then((issues) => issues.sort((a, b) => {
@@ -19,6 +20,13 @@ const issuesByYear = allIssues.reduce<Record<string, CollectionEntry<'issues'>[]
 	return acc;
 }, {});
 
+const covers = import.meta.glob<{ default: ImageMetadata }>('/src/assets/covers/*.{jpg,png,jpeg}', { eager: true });
+
+const getCoverImage = (coverFileName: string) => {
+	const coverPath = `/src/assets/covers/${coverFileName}`;
+	return covers[coverPath]?.default;
+};
+
 ---
 
 <div class="issues">
@@ -30,7 +38,11 @@ const issuesByYear = allIssues.reduce<Record<string, CollectionEntry<'issues'>[]
 					{issuesByYear[year].map((issue) => (
 						<a href={`/issues/${issue.data.number}/`}>
 							{/* Edição {issue.data.number} - {issue.data.title} */}
-							<img src="https://placehold.co/200x280" alt="" />
+							{/* <img src="https://placehold.co/200x280" alt="" /> */}
+							{issue.data.cover && (
+								<Image src={getCoverImage(issue.data.cover)!} width={240} alt={`Capa da edição ${issue.data.number} - ${issue.data.title}`} />
+							)}
+							{/* If issue has link, show a link icon */}
 						</a>
 					))}
 				</div>
@@ -73,10 +85,13 @@ const issuesByYear = allIssues.reduce<Record<string, CollectionEntry<'issues'>[]
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		justify-items: center;
-		gap: 2rem;
+		gap: 4rem 2rem;
 
 		img {
+			max-width: 200px;
+			height: auto;
 			border-radius: 8px;
+			/* object-fit: contain; */
 		}
 
 		@media (max-width: 767px) {
