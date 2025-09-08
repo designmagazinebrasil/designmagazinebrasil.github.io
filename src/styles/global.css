@@ -21,6 +21,7 @@ html, body {
 	font-family: 'Crimson Text', serif;
 	color: var(--color-foreground);
 	background-color: var(--color-background);
+	overflow-x: hidden;
 }
 
 :is(h1, h2, h3, h4, h5, h6) {
@@ -49,4 +50,9 @@ html, body {
 	bottom: calc(100% - 2.3rem);
 	color: var(--bg-color);
 	user-select: none;
+
+	@media (max-width: 480px) {
+		font-size: 8rem;
+		bottom: calc(100% - 1.7rem);
+	}
 }
