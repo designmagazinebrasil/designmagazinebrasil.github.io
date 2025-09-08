@@ -1,6 +1,6 @@
 import { gsap } from "gsap";
 
-const hoverEffect = ($card) => {
+const hoverEffect = ($card, perspective) => {
 	let bounds;
 	let lastShadowOffsetX = 0;
 	let lastShadowOffsetY = 0;
@@ -34,7 +34,7 @@ const hoverEffect = ($card) => {
 			scale: 1.1,
 			rotationX: rotationX,
 			rotationY: rotationY,
-			transformPerspective: 500,
+			transformPerspective: perspective || 500,
 			ease: "power2.out",
 			boxShadow: `${shadowOffsetX}px ${shadowOffsetY}px ${shadowBlur}px 4px rgba(0, 0, 0, .1)`
 		});

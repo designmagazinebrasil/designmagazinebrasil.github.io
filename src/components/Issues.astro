@@ -49,13 +49,12 @@ const getCoverImage = (coverFileName: string) => {
 </div>
 
 <script>
-	// import card hover effect from local script
 	import { gsap } from "gsap";
 	import { ScrollTrigger } from "gsap/ScrollTrigger";
 	import hoverEffect from "../scripts/hoverEffect.js";
 
 	gsap.registerPlugin(ScrollTrigger);
-	gsap.set(".issues-list a", { y: 100 });
+	gsap.set(".issues-list a", { y: 100, opacity: 0 });
 
 	ScrollTrigger.batch(".issues-list a", {
 		onEnter: (batch) =>
@@ -69,7 +68,6 @@ const getCoverImage = (coverFileName: string) => {
 	});
 
 	const $issueCards = document.querySelectorAll(".issues-list a");
-
 	$issueCards.forEach(($card) => {
 		hoverEffect($card);
 	});

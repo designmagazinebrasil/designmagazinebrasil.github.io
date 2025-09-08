@@ -81,8 +81,32 @@ const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex +
 	</section>
 </Layout>
 
-<style>
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	import hoverEffect from '../../scripts/hoverEffect.js';
 
+	gsap.registerPlugin(ScrollTrigger);
+	gsap.set(".issue-content img", { y: 100, opacity: 0 });
+
+	ScrollTrigger.batch(".issue-content img", {
+		onEnter: (batch) =>
+			gsap.to(batch, {
+			duration: 1,
+			y: 0,
+			opacity: 1,
+			stagger: 0.1,
+			ease: "power3.out",
+		}),
+	});	
+
+	const $issueCard = document.querySelector(".issue-content img");
+	if ($issueCard) {
+		hoverEffect($issueCard, 1000);
+	}
+</script>
+
+<style>
 	.issue {
 		background-color: var(--color-background-secondary);
 		padding-block: 4rem;
@@ -126,6 +150,7 @@ const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex +
 		img {
 			border-radius: 16px;
 			margin-top: -10rem;
+			box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.2);
 		}
 	}
 	.issue-navigation {
