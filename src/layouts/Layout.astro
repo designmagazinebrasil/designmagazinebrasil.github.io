@@ -21,7 +21,8 @@ import { Image } from 'astro:assets';
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Design Magazine Brasil</title>
+	<title>{Astro.props.title ? `${Astro.props.title} | Design Magazine Brasil` : 'Design Magazine Brasil'}</title>
+	<meta name="description" content={Astro.props.description || 'A Design Magazine Brasil é uma publicação independente dedicada ao design, cultura visual e criatividade no Brasil.'} />
 </head>
 <body>
 	<Image src={HeaderBackground} width="1920" alt="Header Background" class="header-background" />
