@@ -11,6 +11,7 @@
   "dependencies": {
     "@fontsource/crimson-pro": "^5.2.6",
     "@fontsource/crimson-text": "^5.2.6",
-    "astro": "^5.13.5"
+    "astro": "^5.13.5",
+    "gsap": "^3.13.0"
   }
 }
