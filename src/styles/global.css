@@ -52,7 +52,7 @@ html, body {
 	user-select: none;
 
 	@media (max-width: 480px) {
-		font-size: 8rem;
+		font-size: 10rem;
 		bottom: calc(100% - 1.7rem);
 	}
 }
