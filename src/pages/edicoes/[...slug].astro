@@ -2,6 +2,8 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { Image } from 'astro:assets';
+import ArrowLeft from '../../assets/icons/arrow-left.svg';
+import ArrowRight from '../../assets/icons/arrow-right.svg';
 
 export async function getStaticPaths() {
   const issues = await getCollection('issues');
@@ -44,7 +46,7 @@ const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex +
 				<div class="issue-text">
 					<h2>{issue.data.title}</h2>
 					<Content />
-					<a class="cta" href={`${issue.data.link}`} target="_blank">Leia mais</a>
+					<a class="cta" href={`${issue.data.link}`} target="_blank">Baixar edição completa (PDF)</a>
 				</div>
 				{issue.data.cover && (
 					<Image src={getCoverImage(issue.data.cover)!} width={400} alt={`Capa da edição ${issue.id} - ${issue.data.title}`} />
@@ -57,13 +59,21 @@ const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex +
 		<div class="container">
 			<div class="issue-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem;">
 				{previousIssue ? (
-					<a href={`/edicoes/${previousIssue.id}/`}>
-						&larr; Edição {previousIssue.id} - {previousIssue.data.title}
+					<a href={`/edicoes/${previousIssue.id}/`} class="issue-navigation-prev">
+						<Image src={getCoverImage(previousIssue.data.cover)!} width={80} alt={`Capa da edição ${previousIssue.id} - ${previousIssue.data.title}`} />
+						<div class="issue-navigation-text">
+							<div class="issue-navigation-title"><ArrowLeft /> Edição #{previousIssue.id}</div>
+							<div class="issue-navigation-subtitle">{previousIssue.data.title}</div>
+						</div>
 					</a>
 				) : <div></div>}
 				{nextIssue ? (
-					<a href={`/edicoes/${nextIssue.id}/`}>
-						Edição {nextIssue.id} - {nextIssue.data.title} &rarr;
+					<a href={`/edicoes/${nextIssue.id}/`} class="issue-navigation-next">
+						<Image src={getCoverImage(nextIssue.data.cover)!} width={80} alt={`Capa da edição ${nextIssue.id} - ${nextIssue.data.title}`} />
+						<div class="issue-navigation-text">
+							<div class="issue-navigation-title">Edição #{nextIssue.id} <ArrowRight /></div>
+							<div class="issue-navigation-subtitle">{nextIssue.data.title}</div>
+						</div>
 					</a>
 				) : <div></div>}
 			</div>
@@ -105,6 +115,11 @@ const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex +
 				padding: 1rem 2rem;
 				border-radius: 8px;
 				text-decoration: none;
+				transition: background-color 0.3s ease;
+
+				&:hover {
+					background-color: var(--color-accent-dark);
+				}
 			}
 		}
 
@@ -116,6 +131,64 @@ const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex +
 	.issue-navigation {
 		a {
 			text-decoration: none;
+			--color: var(--color-foreground-secondary);
+			color: var(--color);
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			font-size: 1.2rem;
+			transition: color 0.3s ease;
+
+			&:hover {
+				--color: var(--color-accent);
+			}
 		}
+
+		img {
+			border-radius: 4px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
+	}
+
+	.issue-navigation-next {
+		flex-direction: row-reverse;
+		text-align: left;
+
+		.issue-navigation-text {
+			align-items: flex-start;
+		}
+	}
+
+	.issue-navigation-prev {
+		.issue-navigation-text {
+			align-items: flex-end
+		}
+	}
+
+	.issue-navigation-text {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.issue-navigation-title {
+		font-weight: 700;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+
+		svg {
+			width: 1.5rem;
+			height: auto
+			fill: var(--color);
+			transition: fill 0.3s ease;
+			path {
+				fill: var(--color);
+				transition: fill 0.3s ease;
+			}
+		}
+	}
+	.issue-navigation-subtitle {
+		font-size: 1rem;
+		white-space: nowrap;
 	}
 </style>

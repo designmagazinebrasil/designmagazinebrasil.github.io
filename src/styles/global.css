@@ -1,9 +1,18 @@
 :root {
 	--color-foreground: #202020;
+	--color-foreground-secondary: #4a4a4a;
 	--color-background: #fcfcfc;
 	--color-background-secondary: #ededed;
 	--color-border: #fdfdfd;
-	--color-accent: #72dee3;
+	--color-accent: hsl(35, 67%, 67%);
+	--color-accent-dark: hsl(35, 67%, 57%);
+	--color-accent-light: hsl(35, 67%, 77%);
+}
+
+/* selection */
+::selection {
+	color: var(--color-background);
+	background-color: var(--color-accent-light);
 }
 
 html, body {
