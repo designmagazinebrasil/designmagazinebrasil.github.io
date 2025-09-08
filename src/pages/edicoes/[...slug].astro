@@ -57,7 +57,7 @@ const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex +
 
 	<section>
 		<div class="container">
-			<div class="issue-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem;">
+			<div class="issue-navigation">
 				{previousIssue ? (
 					<a href={`/edicoes/${previousIssue.id}/`} class="issue-navigation-prev">
 						<Image src={getCoverImage(previousIssue.data.cover)!} width={80} alt={`Capa da edição ${previousIssue.id} - ${previousIssue.data.title}`} />
@@ -122,9 +122,9 @@ const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex +
 		gap: 4rem;
 
 		.issue-text {
-			flex: 1;
+			flex: 1 1 auto;
 			font-size: 1.5rem;
-			min-width: 0;
+			min-width: 480;
 
 			p {
 				text-wrap: pretty;
@@ -145,15 +145,45 @@ const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex +
 					background-color: var(--color-accent-dark);
 				}
 			}
+
+			@media (max-width: 1024px) {
+				font-size: 1.2rem;
+			}
 		}
 
 		img {
+			/* can shrink */
+			height: auto;
+			/* min-width: 200px; */
+			max-width: 50%;
+			flex: 0 1 auto;
+			align-self: start;
 			border-radius: 16px;
 			margin-top: -10rem;
 			box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.2);
+
+			@media (max-width: 1024px) {
+				max-width: 40%;
+			}
+
+			@media (max-width: 768px) {
+				margin-top: -6rem;
+				max-width: 300px;
+				width: 100%;
+				height: auto;
+				margin-inline: auto;
+			}
+		}
+
+		@media (max-width: 768px) {
+			flex-direction: column-reverse;
+			align-items: center;
 		}
 	}
 	.issue-navigation {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 4rem;
 		a {
 			text-decoration: none;
 			--color: var(--color-foreground-secondary);
@@ -173,11 +203,19 @@ const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex +
 			border-radius: 4px;
 			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 		}
+
+		@media (max-width: 768px) {
+			width: 100%;
+			flex-direction: column;
+			gap: 2rem;
+			align-items: center;
+		}
 	}
 
 	.issue-navigation-next {
 		flex-direction: row-reverse;
 		text-align: left;
+		align-self: flex-end;
 
 		.issue-navigation-text {
 			align-items: flex-start;
@@ -185,6 +223,7 @@ const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex +
 	}
 
 	.issue-navigation-prev {
+		align-self: flex-start;
 		.issue-navigation-text {
 			align-items: flex-end
 		}

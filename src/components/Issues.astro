@@ -119,10 +119,20 @@ const getCoverImage = (coverFileName: string) => {
 			max-width: 200px;
 			height: auto;
 			display: block;
+
+			@media (max-width: 768px) {
+				max-width: 160px;
+			}
 		}
 
-		@media (max-width: 767px) {
+		@media (max-width: 768px) {
 			grid-template-columns: repeat(2, 1fr);
 		}
+
+		@media (max-width: 480px) {
+			grid-template-columns: 1fr;
+		}
 	}
+
+
 </style>

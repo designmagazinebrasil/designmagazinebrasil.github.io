@@ -41,6 +41,17 @@ import Issues from '../components/Issues.astro';
 			left: -3rem;
 			font-family: 'Crimson Pro', serif;
 		}
+
+		@media (max-width: 768px) {
+			font-size: 1.25rem;
+			margin-top: 6rem;
+			max-width: 100%;
+
+			&::before{
+				font-size: 12rem;
+				top: -4rem;
+				left: -2rem;
+			}
 	}
 
 	.editorial__content {
