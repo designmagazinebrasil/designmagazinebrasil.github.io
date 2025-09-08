@@ -36,7 +36,7 @@ const getCoverImage = (coverFileName: string) => {
 				<h2 class="section-title">{year}</h2>
 				<div class="issues-list">
 					 {issuesByYear[year].map((issue) => (
-					 <a href={`/edicoes/${issue.id}/`}>
+						<a href={`/edicoes/${issue.id}/`}>
 							{issue.data.cover && (
 								<Image src={getCoverImage(issue.data.cover)!} width={240} alt={`Capa da edição ${issue.id} - ${issue.data.title}`} />
 							)}
@@ -85,7 +85,22 @@ const getCoverImage = (coverFileName: string) => {
 			height: auto;
 			border-radius: 8px;
 			display: block;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1),
+				0 1px 5px rgba(0, 0, 0, 0.25);
+			transition: all 0.3s ease;
 		}
+
+		a {
+			perspective: 1000px;
+    		perspective-origin: left center;
+
+			&:hover img {
+				transform: scale(1.1) rotateY(-15deg);
+				box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05),
+					0 4px 10px rgba(0, 0, 0, 0.15);
+			
+		}
+	
 
 		@media (max-width: 767px) {
 			grid-template-columns: repeat(2, 1fr);
