@@ -38,6 +38,7 @@ import Issues from '../components/Issues.astro';
 			top: -6rem;
 			left: -3rem;
 			font-family: 'Crimson Pro', serif;
+			user-select: none;
 		}
 
 		@media (max-width: 768px) {
@@ -53,6 +54,8 @@ import Issues from '../components/Issues.astro';
 
 	.editorial__content {
 		margin-bottom: 1.5rem;
+		position: relative;
+		z-index: 1;
 	}
 
 	.editorial__name {
